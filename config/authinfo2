@@ -1,0 +1,5 @@
+[swift]
+backend-login: hubic
+backend-password: hubicgatepass
+fs-passphrase: 123456789
+storage-url: swift://hubicgate:80/default
