@@ -1,5 +1,6 @@
 FROM python:3-onbuild
 MAINTAINER <sdelrio@users.noreply.github.com>
+ENV VER_S3QL 2.17.1
 RUN apt-get update \
  && apt-get remove --purge -y libsqlite3-0 \
  && apt-get install -y build-essential psmisc \
@@ -15,15 +16,15 @@ RUN apt-get update \
  && pip install apsw llfuse dugong \
  && cd \
 \
- && wget https://bitbucket.org/nikratio/s3ql/downloads/s3ql-2.15.tar.bz2 \
- && tar xjvf s3ql-2.15.tar.bz2 \
- && cd s3ql-2.15 \
+ && wget https://bitbucket.org/nikratio/s3ql/downloads/s3ql-$VER_S3QL.tar.bz2 \
+ && tar xjvf s3ql-$VER_S3QL.tar.bz2 \
+ && cd s3ql-$VER_S3QL \
  && python3 setup.py build_ext --inplace \
  && ls bin \
  && python3 setup.py install \
  && cd \
 \
- && rm -rf s3ql-2.15.tar.bz2 s3ql-2.15 sqlite-autoconf-3100000.tar.gz sqlite-autoconf-3100000 \
+ && rm -rf s3ql-$VER_S3QL.tar.bz2 s3ql-$VER_S3QL sqlite-autoconf-3100000.tar.gz sqlite-autoconf-3100000 \
  && apt-get remove --purge -y build-essential make manpages manpages-dev patch perl perl-modules rename xz-utils \
  && apt-get autoremove -y \
  && apt-get remove -y libattr1-dev libfuse-dev libpcre3-dev libc6-dev libselinux1-dev libsepol1-dev linux-libc-dev libpcre3-dev libc-dev-bin pkg-config wget \
