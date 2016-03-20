@@ -37,7 +37,7 @@ fi
 # storage-url (swift://<hostname>:<port>/<container>)
 
 if [ "$S3QL_STORAGE_URL" ]; then
-    sed -i "s#^storage-url:#storage-url: swift://$S3QL_STORAGE_URL#" $CONFIGFILE
+    sed -i "s#^storage-url:.*#storage-url: swift://$S3QL_STORAGE_URL#" $CONFIGFILE
 else
     S3QL_STORAGE_URL=hubicgate:80/default
 fi
