@@ -1,4 +1,8 @@
-FROM python:3-onbuild
+FROM python:3
+
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+
 MAINTAINER <sdelrio@users.noreply.github.com>
 ENV VER_S3QL 2.17.1
 RUN apt-get update \
@@ -30,15 +34,24 @@ RUN apt-get update \
  && apt-get remove -y libattr1-dev libfuse-dev libpcre3-dev libc6-dev libselinux1-dev libsepol1-dev linux-libc-dev libpcre3-dev libc-dev-bin pkg-config wget \
  && mkdir /mnt/hubic \
  && mkdir /tmp/hubic_cache \
+\ 
+ && apt-get install -y bash \
 \
- && apt-get install -y bash
+ && DEBIAN_FRONTEND=noninteractive apt-get install -y -q runit
+
+ADD sbin/my_init /sbin/my_init
+RUN chmod 755 /sbin/my_init
 
 RUN mkdir /root/.s3ql
 ADD config/authinfo2 /root/.s3ql/authinfo2
 RUN chmod 600 /root/.s3ql/authinfo2
 
-ADD bin/run_s3qlconfig.sh /usr/bin/run_s3qlconfig.sh
+ADD etc/s3ql.run /etc/service/s3ql/run
+ADD etc/s3ql.finish /etc/service/s3ql/finish
+RUN chmod 755 /etc/service/s3ql/run
+RUN chmod 755 /etc/service/s3ql/finish
 
 VOLUME ["/mnt/hubic"]
 
-CMD ["/usr/bin/run_s3qlconfig.sh"]
+ENTRYPOINT ["/sbin/my_init"]
+

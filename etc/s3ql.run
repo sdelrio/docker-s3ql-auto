@@ -64,7 +64,7 @@ echo starting s3ql on $S3QL_STORAGE_URL ...
 
 # FSCK on startup just in case
 echo "starting fsck ..."
-echo " /usr/local/bin/fsck.s3ql swift://$S3QL_STORAGE_URL $BACKEND_OPTIONS"
+echo "/usr/local/bin/fsck.s3ql swift://$S3QL_STORAGE_URL $BACKEND_OPTIONS"
 echo "continue"| /usr/local/bin/fsck.s3ql swift://$S3QL_STORAGE_URL $BACKEND_OPTIONS
 
 # MOUNT S3QL filesystem
@@ -78,8 +78,3 @@ echo "starting mount ..."
   --backend-options no-ssl \
   swift://$S3QL_STORAGE_URL \
   --fg \
-  $S3QL_MOUNT &
-
-# Capture SIGTERM to umount filesystem
-trap "echo umounting... ; /usr/local/bin/umount.s3ql $S3QL_MOUNT; exit 0" SIGTERM
-while true; do :; done

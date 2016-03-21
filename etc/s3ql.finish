@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# mountpoint
+
+if [ -z "$S3QL_MOUNT" ]; then
+    S3QL_MOUNT=/mnt/hubic
+fi
+
+# Capture SIGTERM to umount filesystem
+echo umounting $S3QL_MOUNT ...
+/usr/local/bin/umount.s3ql $S3QL_MOUNT

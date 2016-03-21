@@ -42,3 +42,7 @@ Check if is mounted
 $ docker exec -ti s3ql_s3ql_1 df -h|grep hubic
 swift://hubicgate:80/default/                           1.0T  4.0K  1.0T   1% /mnt/hubic
 ```
+
+# References
+
+startup script `/sbin/my_init` from `phusion/baseimage`.
