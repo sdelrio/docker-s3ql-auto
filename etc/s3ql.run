@@ -76,5 +76,4 @@ echo "starting mount ..."
   --max-cache-entries $S3QL_CACHE_ENTRIES \
   --allow-other --metadata-upload-interval $S3QL_METADATA_INTERVAL \
   --backend-options no-ssl \
-  swift://$S3QL_STORAGE_URL \
-  --fg \
+  swift://$S3QL_STORAGE_URL 
